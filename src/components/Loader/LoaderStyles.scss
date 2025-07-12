@@ -1,0 +1,14 @@
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dog-walk {
+  background-image: url('../../assets/running-dog.gif');
+  width: 150px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
