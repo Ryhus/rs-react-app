@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import SearchForm from './components/SearchForm/SearchForm';
 import BreedList from './components/BreedList/BreedList';
+import { getAllBreeds } from './Services/DogService/DogService';
+import Loader from './components/Loader/Loader';
 import type { Breed } from './Services/DogService/types';
 
 import './styles/main.scss';
-import Loader from './components/Loader/Loader';
 
 interface AppState {
   breeds: Breed[];
@@ -16,6 +17,19 @@ class App extends Component<Record<string, never>, AppState> {
     breeds: [],
     loading: false,
   };
+
+  async componentDidMount() {
+    this.setState({ loading: true });
+
+    try {
+      const breeds = await getAllBreeds();
+      this.setState({ breeds });
+    } catch (error) {
+      console.error('Failed to fetch breeds on load', error);
+    } finally {
+      this.setState({ loading: false });
+    }
+  }
 
   handleSearch = async (breeds: Breed[]) => {
     this.setState({ loading: true });
