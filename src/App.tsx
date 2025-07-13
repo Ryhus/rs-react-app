@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchForm from './components/SearchForm/SearchForm';
 import BreedList from './components/BreedList/BreedList';
+import PopUpMessage from './components/PopUpMessage/PopUpMessage';
 import { getAllBreeds } from './Services/DogService/DogService';
 import Loader from './components/Loader/Loader';
 import type { Breed } from './Services/DogService/types';
@@ -11,6 +12,7 @@ interface AppState {
   breeds: Breed[];
   loading: boolean;
   forceError: boolean;
+  error: string;
 }
 
 class App extends Component<Record<string, never>, AppState> {
@@ -18,6 +20,7 @@ class App extends Component<Record<string, never>, AppState> {
     breeds: [],
     loading: false,
     forceError: false,
+    error: '',
   };
 
   async componentDidMount() {
@@ -28,6 +31,9 @@ class App extends Component<Record<string, never>, AppState> {
       this.setState({ breeds });
     } catch (error) {
       console.error('Failed to fetch breeds on load', error);
+      this.setState({
+        error: 'Failed to load dog breeds. Please try again later.',
+      });
     } finally {
       this.setState({ loading: false });
     }
@@ -45,7 +51,7 @@ class App extends Component<Record<string, never>, AppState> {
   };
 
   render(): React.ReactNode {
-    const { loading, breeds, forceError } = this.state;
+    const { loading, breeds, forceError, error } = this.state;
 
     if (forceError) throw new Error('Error is tested!');
 
@@ -61,6 +67,12 @@ class App extends Component<Record<string, never>, AppState> {
         <button className="error-button" onClick={this.triggerError}>
           🐾 Trigger Error
         </button>
+        {error && (
+          <PopUpMessage
+            message={error}
+            onClose={() => this.setState({ error: '' })}
+          />
+        )}
       </div>
     );
   }

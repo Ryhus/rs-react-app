@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PopUpMessage from '../PopUpMessage/PopUpMessage';
 import {
   searchBreeds,
   getAllBreeds,
@@ -41,15 +42,26 @@ class SearchForm extends Component<SearchFormProps, SearchFormState> {
 
     const { input } = this.state;
 
-    if (input.trim() === '') {
-      const breedList = await getAllBreeds();
-      this.props.onSearch(breedList);
-      console.log(breedList);
-    } else {
-      console.log('Searching for:', input);
-      const foundBreeds = await searchBreeds(input.trim());
-      this.props.onSearch(foundBreeds);
-      console.log(foundBreeds);
+    this.setState({ error: '' });
+
+    try {
+      if (input.trim() === '') {
+        const breedList = await getAllBreeds();
+        this.props.onSearch(breedList);
+      } else {
+        const foundBreeds = await searchBreeds(input.trim());
+        this.props.onSearch(foundBreeds);
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        this.setState({
+          error: 'Failed to load dog breeds. Please try again later.',
+        });
+      } else {
+        this.setState({
+          error: 'Something went wrong. Please try again.',
+        });
+      }
     }
   };
 
@@ -75,7 +87,12 @@ class SearchForm extends Component<SearchFormProps, SearchFormState> {
         <button type="submit" className="submit-btn">
           Search
         </button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && (
+          <PopUpMessage
+            message={error}
+            onClose={() => this.setState({ error: '' })}
+          />
+        )}
       </form>
     );
   }
