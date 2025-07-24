@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 
 import './PopUpMessageStyles.scss';
 
@@ -7,14 +7,13 @@ interface PopUpMessageProps {
   onClose: () => void;
 }
 
-class PopUpMessage extends Component<PopUpMessageProps> {
-  componentDidMount() {
-    setTimeout(this.props.onClose, 3000);
-  }
+function PopUpMessage({ message, onClose }: PopUpMessageProps) {
+  useEffect(() => {
+    const timer = setTimeout(onClose, 3000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
 
-  render() {
-    return <div className="pop-up-message">{this.props.message}</div>;
-  }
+  return <div className="pop-up-message">{message}</div>;
 }
 
 export default PopUpMessage;
