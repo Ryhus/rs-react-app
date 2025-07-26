@@ -10,6 +10,8 @@ import {
 import Loader from '../../components/Loader/Loader';
 import type { Breed } from '../../Services/DogService/types';
 
+import './HomeStyles.scss';
+
 function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -48,7 +50,7 @@ function Home() {
   };
 
   return (
-    <div className="app-layout">
+    <div className="home-page-container">
       <h1 className="search-hint">
         Looking for your favorite dog breed? 🐶
         <br />
