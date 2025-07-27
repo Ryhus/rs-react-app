@@ -67,7 +67,12 @@ function Home() {
 
   return (
     <div className={`home-page-container ${detailId ? 'split-view' : ''}`}>
-      <div className="master">
+      <div
+        className="master"
+        onClick={() => {
+          if (detailId) handleCloseDetails();
+        }}
+      >
         <h1 className="search-hint">
           Looking for your favorite dog breed? 🐶
           <br />
