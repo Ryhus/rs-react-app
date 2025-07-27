@@ -18,7 +18,6 @@ function BreedDetails() {
       try {
         const data = await getBreedById(breedId);
         setBreed(data);
-        console.log(breedId, breed);
       } catch (e) {
         console.error(e);
       } finally {

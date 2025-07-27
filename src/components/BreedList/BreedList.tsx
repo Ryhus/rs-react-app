@@ -15,7 +15,7 @@ function BreedList({ breeds, onCardClick }: BreedListProps) {
         <BreedCard
           key={breed.id}
           breed={breed}
-          onClick={() => onCardClick(breed.id)}
+          onClick={() => onCardClick(breed.id ?? '1')}
         />
       ))}
     </section>

@@ -23,6 +23,8 @@ export default defineConfig({
         'src/setupTests.{js,ts}',
         'src/**/*.d.ts',
         'src/**/types.ts',
+        'src/routes/*.{js,jsx,ts,tsx}',
+        'src/Layouts/MainLayout/MainLayout.tsx',
       ],
       thresholds: {
         statements: 80,

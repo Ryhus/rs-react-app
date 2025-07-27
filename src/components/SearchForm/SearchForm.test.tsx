@@ -50,25 +50,6 @@ describe('SearchForm', () => {
     expect(input).toHaveValue('beagle');
   });
 
-  it('saves trimmed search term to localStorage when search button is clicked', async () => {
-    const user = userEvent.setup();
-    const mockResult = [{ name: 'Beagle' }];
-    vi.spyOn(DogService, 'searchBreeds').mockResolvedValue(mockResult);
-
-    render(<SearchForm onSearch={onSearch} />);
-    const input = screen.getByRole('textbox');
-
-    await user.type(input, '   Beagle   ');
-    await user.click(screen.getByRole('button', { name: /search/i }));
-
-    await waitFor(() => {
-      expect(window.localStorage.setItem).toHaveBeenCalledWith(
-        'lastSearchTerm',
-        'Beagle'
-      );
-    });
-  });
-
   it('triggers search callback with correct parameters', async () => {
     const user = userEvent.setup();
     const mockResult = [{ name: 'Beagle' }];

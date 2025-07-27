@@ -1,8 +1,8 @@
 export interface Breed {
-  id: string;
-  origin: string;
-  name: string;
-  temperament: string;
+  id?: string;
+  origin?: string;
+  name?: string;
+  temperament?: string;
   weight?: { imperial?: string; metric?: string };
   description?: string;
   cfa_url?: string;
