@@ -1,13 +1,13 @@
 export interface Breed {
+  id: string;
+  origin: string;
+  name: string;
+  temperament: string;
   weight?: { imperial?: string; metric?: string };
-  id?: string;
-  name?: string;
   description?: string;
   cfa_url?: string;
   vetstreet_url?: string;
   vcahospitals_url?: string;
-  temperament?: string;
-  origin?: string;
   life_span?: string;
   indoor?: number;
   lap?: number;

@@ -4,6 +4,7 @@
   align-items: center;
   gap: 30px;
   margin-top: 50px;
+  padding: 0 1rem;
 
   .search-hint {
     text-align: center;
@@ -16,5 +17,64 @@
       font-style: normal;
       font-weight: 600;
     }
+  }
+
+  &.split-view {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100vh;
+    overflow: hidden;
+
+    .master {
+      width: 50%;
+      height: 100%;
+      overflow-y: auto;
+      padding-right: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .detail-panel {
+      width: 50%;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+      overflow-y: auto;
+      animation: slideIn 0.3s ease-out forwards;
+      position: relative;
+
+      @media (max-width: 768px) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        z-index: 999;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .master {
+    width: 100%;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
