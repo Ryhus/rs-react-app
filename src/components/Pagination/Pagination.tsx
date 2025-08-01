@@ -1,74 +1,49 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { getPaginationPages } from '../../utils/pagination';
-
 import './PagintationStyles.scss';
 
 interface PaginationProps {
-  totalPages: number;
-  pageNeighbours?: number;
+  currentPage: number;
+  itemsOnCurrentPage: number;
+  itemsPerPage?: number;
+  disableNextBttn?: boolean;
 }
 
-function Pagination({ totalPages, pageNeighbours = 2 }: PaginationProps) {
+function Pagination({
+  currentPage,
+  itemsOnCurrentPage,
+  itemsPerPage = 10,
+}: PaginationProps) {
   const [searchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get('page')) || 1;
 
-  const pages = getPaginationPages(currentPage, totalPages, pageNeighbours);
+  const isFirstPage = currentPage === 0;
+  const isLastPage = itemsOnCurrentPage < itemsPerPage;
 
-  const handleMoveLeft = () =>
-    `?page=${Math.max(1, currentPage - (pageNeighbours * 2 + 1))}`;
-
-  const handleMoveRight = () =>
-    `?page=${Math.min(totalPages, currentPage + (pageNeighbours * 2 + 1))}`;
+  const createLink = (page: number) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('page', String(page + 1));
+    return `?${newParams.toString()}`;
+  };
 
   return (
     <nav className="pagination-container">
       <ul className="pagination-list">
         <li>
           <Link
-            className={`page-link ${currentPage === 1 ? 'disabled' : ''}`}
-            to={`?page=${Math.max(1, currentPage - 1)}`}
+            className={`page-link ${isFirstPage ? 'disabled' : ''}`}
+            to={createLink(currentPage - 1)}
+            aria-disabled={isFirstPage}
+            onClick={(e) => isFirstPage && e.preventDefault()}
           >
             Prev
           </Link>
         </li>
 
-        {pages.map((page, index) => {
-          if (page === 'LEFT') {
-            return (
-              <li key={index}>
-                <Link className="page-link" to={handleMoveLeft()}>
-                  ...
-                </Link>
-              </li>
-            );
-          }
-
-          if (page === 'RIGHT') {
-            return (
-              <li key={index}>
-                <Link className="page-link" to={handleMoveRight()}>
-                  ...
-                </Link>
-              </li>
-            );
-          }
-
-          return (
-            <li key={index}>
-              <Link
-                className={`page-link ${currentPage === page ? 'active' : ''}`}
-                to={`?page=${page}`}
-              >
-                {page}
-              </Link>
-            </li>
-          );
-        })}
-
         <li>
           <Link
-            className={`page-link ${currentPage === totalPages ? 'disabled' : ''}`}
-            to={`?page=${Math.min(totalPages, currentPage + 1)}`}
+            className={`page-link ${isLastPage ? 'disabled' : ''}`}
+            to={createLink(currentPage + 1)}
+            aria-disabled={isLastPage}
+            onClick={(e) => isLastPage && e.preventDefault()}
           >
             Next
           </Link>
