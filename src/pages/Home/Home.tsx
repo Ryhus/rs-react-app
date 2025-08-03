@@ -9,6 +9,7 @@ import SearchForm from '../../components/SearchForm/SearchForm';
 import BreedList from '../../components/BreedList/BreedList';
 import Pagination from '../../components/Pagination/Pagination';
 import NoResultsPlaceholder from '../../components/NoResultsPlaceholder/NoResultsPlaceholder';
+import Flyout from '@/components/Flyout/Flyout';
 
 import { type AllBreedsLoaderData } from '../../routes/DataHandlers/Home/HomeLoaders';
 
@@ -19,16 +20,14 @@ function Home() {
   const data = useLoaderData<AllBreedsLoaderData>();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  console.log(searchParams.get('page'));
-
   const navigation = useNavigation();
 
   const isLoading = navigation.state === 'loading';
 
   const detailId = searchParams.get('details');
 
-  const handleCardClick = (breedId: string) => {
-    searchParams.append('details', breedId);
+  const handleCardClick = (breedId: number) => {
+    searchParams.append('details', breedId.toString());
     setSearchParams(searchParams);
   };
 
@@ -68,6 +67,7 @@ function Home() {
             )}
           </>
         )}
+        <Flyout />
       </div>
 
       {detailId && (

@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-import type { Breed } from '@/Services/DogService/types';
+import type { BreedInfo } from '@/Services/DogService/types';
 
 interface SelectionStore {
-  selected: Record<string, Breed>;
-  toggleSelection: (breed: Breed) => void;
+  selected: Record<string, BreedInfo>;
+  toggleSelection: (breed: BreedInfo) => void;
   clearSelection: () => void;
-  isSelected: (id: string) => boolean;
-  selectedList: () => Breed[];
+  isSelected: (id: number) => boolean;
+  selectedList: () => BreedInfo[];
 }
 
 export const useSelectionStore = create<SelectionStore>((set, get) => ({
@@ -16,7 +16,7 @@ export const useSelectionStore = create<SelectionStore>((set, get) => ({
   toggleSelection: (breed) => {
     if (!breed.id) return;
 
-    const id = breed.id as string;
+    const id = breed.id;
 
     set((state) => {
       const newSelected = { ...state.selected };

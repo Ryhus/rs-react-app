@@ -4,14 +4,14 @@ import {
   getBreedById,
 } from '../../../Services/DogService/DogService';
 
-import { type Breed } from '../../../Services/DogService/types';
+import { type BreedInfo } from '../../../Services/DogService/types';
 import type {
   LoaderFunctionArgs,
   ShouldRevalidateFunctionArgs,
 } from 'react-router-dom';
 
 export interface AllBreedsLoaderData {
-  breeds: Breed[];
+  breeds: BreedInfo[];
   currentPage: number;
   isSearch: boolean;
 }

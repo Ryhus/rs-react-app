@@ -1,11 +1,11 @@
 import BreedCard from '../BreedCard/BreedCard';
-import type { Breed } from '../../Services/DogService/types';
+import type { BreedInfo } from '../../Services/DogService/types';
 
 import './BreedListStyles.scss';
 
 interface BreedListProps {
-  breeds: Breed[];
-  onCardClick: (id: string) => void;
+  breeds: BreedInfo[];
+  onCardClick: (id: number) => void;
 }
 
 function BreedList({ breeds, onCardClick }: BreedListProps) {
@@ -15,7 +15,7 @@ function BreedList({ breeds, onCardClick }: BreedListProps) {
         <BreedCard
           key={breed.id}
           breed={breed}
-          onClick={() => onCardClick(breed.id ?? '1')}
+          onClick={() => onCardClick(breed.id)}
         />
       ))}
     </section>

@@ -1,18 +1,18 @@
 import { useSelectionStore } from '@/stores/selectionStore';
 
-import type { Breed } from '../../Services/DogService/types';
+import type { BreedInfo } from '../../Services/DogService/types';
 
 import './BreedCardStyles.scss';
 
 interface BreedProps {
-  breed: Breed;
+  breed: BreedInfo;
   onClick: () => void;
 }
 
 function BreedCard({ breed, onClick }: BreedProps) {
   const { toggleSelection, isSelected } = useSelectionStore();
 
-  const selected = isSelected(breed.id ? breed.id : '');
+  const selected = isSelected(breed.id);
 
   return (
     <div className="breed-card-container">
