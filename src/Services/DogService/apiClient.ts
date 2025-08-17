@@ -1,8 +1,8 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosError } from 'axios';
 
-const DOG_API_URL = import.meta.env.VITE_DOG_API_URL;
-const DOG_API_KEY = import.meta.env.VITE_DOG_API_KEY;
+const DOG_API_URL = process.env.NEXT_PUBLIC_DOG_API_URL;
+const DOG_API_KEY = process.env.NEXT_PUBLIC_DOG_API_KEY;
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: DOG_API_URL,

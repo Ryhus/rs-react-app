@@ -1,7 +1,6 @@
 export * from './BreedCard';
-export * from './BreedDetails';
+// export * from './BreedDetails';
 export * from './BreedList';
-export * from './ErrorBoundary';
 export * from './Flyout';
 export * from './Header';
 export * from './Loader';
@@ -10,3 +9,4 @@ export * from './Pagination';
 export * from './PopUpMessage';
 export * from './SearchForm';
 export * from './Errors';
+export * from './BreedSection';

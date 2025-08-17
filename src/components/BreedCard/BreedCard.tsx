@@ -1,3 +1,5 @@
+'use client';
+
 import { useSelectionStore } from '@/stores/selectionStore';
 
 import type { BreedInfo } from '@/Services/DogService/types';

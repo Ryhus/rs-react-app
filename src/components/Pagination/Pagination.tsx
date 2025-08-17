@@ -1,4 +1,8 @@
-import { Link, useSearchParams } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
+import { useSearchParams, usePathname } from 'next/navigation';
+
 import './PagintationStyles.scss';
 
 interface PaginationProps {
@@ -13,7 +17,8 @@ function Pagination({
   itemsOnCurrentPage,
   itemsPerPage = 10,
 }: PaginationProps) {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const isFirstPage = currentPage === 0;
   const isLastPage = itemsOnCurrentPage < itemsPerPage;
@@ -21,7 +26,7 @@ function Pagination({
   const createLink = (page: number) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('page', String(page + 1));
-    return `?${newParams.toString()}`;
+    return `${pathname}?${newParams.toString()}`;
   };
 
   return (
@@ -30,7 +35,7 @@ function Pagination({
         <li>
           <Link
             className={`page-link ${isFirstPage ? 'disabled' : ''}`}
-            to={createLink(currentPage - 1)}
+            href={createLink(currentPage - 1)}
             aria-disabled={isFirstPage}
             onClick={(e) => isFirstPage && e.preventDefault()}
           >
@@ -41,7 +46,7 @@ function Pagination({
         <li>
           <Link
             className={`page-link ${isLastPage ? 'disabled' : ''}`}
-            to={createLink(currentPage + 1)}
+            href={createLink(currentPage + 1)}
             aria-disabled={isLastPage}
             onClick={(e) => isLastPage && e.preventDefault()}
           >

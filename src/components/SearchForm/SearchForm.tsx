@@ -1,5 +1,6 @@
+'use client';
+
 import { type ChangeEvent, useState } from 'react';
-import { Form } from 'react-router-dom';
 
 import { PopUpMessage } from '@/components';
 import { usePersistedSearchQuery } from '@/hooks/usePersistentSearchQuery';
@@ -20,7 +21,7 @@ function SearchForm() {
   };
 
   return (
-    <Form className="search-bar" method="get">
+    <form className="search-bar" method="get">
       <span>🔍</span>
       <input type="text" name="breed" value={query} onChange={handleChange} />
       <button type="button" className="clear-btn" onClick={handleClear}>
@@ -30,7 +31,7 @@ function SearchForm() {
         Search
       </button>
       {error && <PopUpMessage message={error} onClose={() => setError('')} />}
-    </Form>
+    </form>
   );
 }
 

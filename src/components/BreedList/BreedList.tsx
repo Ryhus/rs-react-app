@@ -1,3 +1,5 @@
+'use client';
+
 import { BreedCard } from '@/components';
 import type { BreedInfo } from '@/Services/DogService/types';
 
@@ -5,17 +7,22 @@ import './BreedListStyles.scss';
 
 interface BreedListProps {
   breeds: BreedInfo[];
-  onCardClick: (id: number) => void;
+  breedId: number;
 }
 
-function BreedList({ breeds, onCardClick }: BreedListProps) {
+function BreedList({ breeds, breedId }: BreedListProps) {
+  // const handleCardClick = (breedId: number) => {
+  //   searchParams.append('details', breedId.toString());
+  //   setSearchParams(searchParams);
+  // };
+
   return (
     <section className="breed-list">
       {breeds.map((breed) => (
         <BreedCard
           key={breed.id}
           breed={breed}
-          onClick={() => onCardClick(breed.id)}
+          onClick={() => console.log(breedId)}
         />
       ))}
     </section>
