@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useSelectionStore } from '@/stores/selectionStore';
 
 import type { BreedInfo } from '@/Services/DogService/types';
@@ -19,7 +20,7 @@ function BreedCard({ breed, onClick }: BreedProps) {
   return (
     <div className="breed-card-container">
       <article className="breed-card" onClick={onClick}>
-        <img src={breed.image?.url} alt={breed.name} />
+        <Image src={breed.image?.url || ''} alt={breed.name} />
         <h2>{breed.name}</h2>
       </article>
       <input

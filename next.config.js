@@ -6,6 +6,9 @@ import { fileURLToPath } from 'url';
 const nextConfig = {
   // output: 'export',
   distDir: './dist',
+  images: {
+    domains: ['cdn2.thedogapi.com'],
+  },
 
   webpack(config) {
     const __filename = fileURLToPath(import.meta.url);

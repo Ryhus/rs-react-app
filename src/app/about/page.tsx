@@ -1,9 +1,11 @@
+import Image from 'next/image';
+
 import './AboutStyles.scss';
 
 function About() {
   return (
     <section className="about-container">
-      <img className="autors-photo" src="photos/me.jpeg" alt="Author photo" />
+      <Image className="autors-photo" src="photos/me.jpeg" alt="Author photo" />
       <h1>Yevhen Ryhus</h1>
       <p>
         I am a <span className="about-highlight">Data Scientist</span> and{' '}
@@ -16,7 +18,7 @@ function About() {
 
       <div className="about-rss">
         <a href="https://rs.school/" target="_blank" rel="noopener noreferrer">
-          <img
+          <Image
             src="/logos/rs-school-logo.svg"
             alt="RS School Logo"
             className="about-rss-logo"

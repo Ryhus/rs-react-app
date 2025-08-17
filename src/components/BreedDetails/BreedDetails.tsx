@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useBreedDetails } from '@/hooks/queries/dogQueries';
 
@@ -30,7 +31,7 @@ function BreedDetails() {
   return (
     <div className="breed-details">
       {breed?.reference_image_id && (
-        <img
+        <Image
           src={`https://cdn2.thedogapi.com/images/${breed.reference_image_id}.jpg`}
           alt={breed.name}
           className="breed-image"
