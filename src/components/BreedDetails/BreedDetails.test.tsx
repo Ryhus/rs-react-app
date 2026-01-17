@@ -14,6 +14,7 @@ const mockBreed = {
   temperament: 'Alert, Affectionate, Smart',
   weight: { metric: '10 - 12', imperial: '22 - 26' },
   height: { metric: '25 - 30', imperial: '10 - 12' },
+  image: { url: 'https://cdn.thedogapi.com/images/abc123.jpg' },
 };
 
 vi.mock('react-router-dom', async () => {
@@ -66,7 +67,8 @@ describe('BreedDetails', () => {
     expect(screen.getByText(/25 - 30 cm/i)).toBeDefined();
 
     const img = screen.getByRole('img', { name: /corgi/i });
-    expect(img.getAttribute('src')).toContain(mockBreed.reference_image_id);
+    expect(img).toBeInTheDocument();
+    expect(img.getAttribute('src')).toBe(mockBreed.image.url);
   });
 
   it('renders "Breed not found" if no breed data', () => {
