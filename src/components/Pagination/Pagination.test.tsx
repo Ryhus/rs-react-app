@@ -1,102 +1,75 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { describe, it, expect, vi, type Mock } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import Pagination from './Pagination';
-import * as paginationUtils from '../../utils/pagination';
+import userEvent, { type UserEvent } from '@testing-library/user-event';
 
-vi.mock('../../utils/pagination', () => ({
-  getPaginationPages: vi.fn(),
-}));
-
-const mockedGetPaginationPages = paginationUtils.getPaginationPages as Mock;
+const renderPagination = (
+  currentPage: number,
+  itemsOnCurrentPage: number,
+  itemsPerPage?: number
+): void => {
+  render(
+    <MemoryRouter initialEntries={[`/?page=${currentPage + 1}`]}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Pagination
+              currentPage={currentPage}
+              itemsOnCurrentPage={itemsOnCurrentPage}
+              itemsPerPage={itemsPerPage}
+            />
+          }
+        />
+      </Routes>
+    </MemoryRouter>
+  );
+};
 
 describe('Pagination component', () => {
-  const renderPagination = (
-    page: number,
-    totalPages: number,
-    pageNeighbours = 1
-  ) => {
-    return render(
-      <MemoryRouter initialEntries={[`/?page=${page}`]}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Pagination
-                totalPages={totalPages}
-                pageNeighbours={pageNeighbours}
-              />
-            }
-          />
-        </Routes>
-      </MemoryRouter>
-    );
-  };
+  let user: UserEvent;
 
-  it('renders basic pagination with active and disabled links', () => {
-    mockedGetPaginationPages.mockReturnValue([1, 'RIGHT', 10]);
-
-    renderPagination(1, 10, 1);
-
-    expect(screen.getByText('Prev')).toHaveClass('disabled');
-    expect(screen.getByText('1')).toHaveClass('active');
-    expect(screen.getByText('10')).toBeInTheDocument();
-    expect(screen.getAllByText('...')).toHaveLength(1);
-    expect(screen.getByText('Next')).not.toHaveClass('disabled');
-
-    expect(screen.getByText('Prev').closest('a')).toHaveAttribute(
-      'href',
-      '/?page=1'
-    );
-    expect(screen.getByText('Next').closest('a')).toHaveAttribute(
-      'href',
-      '/?page=2'
-    );
-    expect(screen.getByText('10').closest('a')).toHaveAttribute(
-      'href',
-      '/?page=10'
-    );
-    expect(screen.getByText('...').closest('a')).toHaveAttribute(
-      'href',
-      '/?page=4'
-    );
+  beforeEach(() => {
+    user = userEvent.setup();
   });
 
-  it('disables Next on last page', () => {
-    mockedGetPaginationPages.mockReturnValue(['LEFT', 9, 10]);
+  it('renders Prev and Next links', (): void => {
+    renderPagination(0, 10, 10);
 
-    renderPagination(10, 10, 1);
+    const prev = screen.getByRole('link', { name: /prev/i });
+    const next = screen.getByRole('link', { name: /next/i });
 
-    expect(screen.getByText('Next')).toHaveClass('disabled');
-    expect(screen.getByText('Prev')).not.toHaveClass('disabled');
-    expect(screen.getByText('...').closest('a')).toHaveAttribute(
-      'href',
-      '/?page=7'
-    );
+    expect(prev).toBeInTheDocument();
+    expect(next).toBeInTheDocument();
   });
 
-  it('shows correct active page in the middle', () => {
-    mockedGetPaginationPages.mockReturnValue(['LEFT', 4, 5, 6, 'RIGHT']);
+  it('disables Prev on the first page', (): void => {
+    renderPagination(0, 10, 10);
 
-    renderPagination(5, 10, 1);
-
-    expect(screen.getByText('5')).toHaveClass('active');
-    expect(screen.getByText('4')).not.toHaveClass('active');
-    expect(screen.getByText('6')).not.toHaveClass('active');
-
-    const ellipses = screen.getAllByText('...');
-    expect(ellipses).toHaveLength(2);
-    expect(ellipses[0].closest('a')).toHaveAttribute('href', '/?page=2');
-    expect(ellipses[1].closest('a')).toHaveAttribute('href', '/?page=8');
+    const prev = screen.getByRole('link', { name: /prev/i });
+    expect(prev).toHaveClass('disabled');
+    expect(prev).toHaveAttribute('aria-disabled', 'true');
   });
 
-  it('renders correctly when only one page exists', () => {
-    mockedGetPaginationPages.mockReturnValue([1]);
+  it('disables Next on the last page', (): void => {
+    renderPagination(2, 5, 10);
 
-    renderPagination(1, 1);
+    const next = screen.getByRole('link', { name: /next/i });
+    expect(next).toHaveClass('disabled');
+    expect(next).toHaveAttribute('aria-disabled', 'true');
+  });
 
-    expect(screen.getByText('1')).toHaveClass('active');
-    expect(screen.getByText('Prev')).toHaveClass('disabled');
-    expect(screen.getByText('Next')).toHaveClass('disabled');
+  it('navigates to next and previous pages', async (): Promise<void> => {
+    renderPagination(1, 10, 10);
+
+    const prev = screen.getByRole('link', { name: /prev/i });
+    const next = screen.getByRole('link', { name: /next/i });
+
+    expect(prev).toHaveAttribute('href', '/?page=1');
+    expect(next).toHaveAttribute('href', '/?page=3');
+
+    await user.click(next);
+    await user.click(prev);
   });
 });

@@ -6,6 +6,8 @@
   text-align: center;
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
 
   .autors-photo {
     width: 250px;
@@ -22,30 +24,32 @@
 
   h1 {
     font-size: 2.5rem;
-    color: #333;
+    color: var(--text);
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
   p {
     font-size: 1.2rem;
-    color: #555;
+    color: var(--text-muted);
     max-width: 600px;
     line-height: 1.6;
   }
 
   .about-highlight {
-    color: #ff6f61;
+    color: var(--highlight);
     font-weight: bold;
   }
 
   .about-rss {
     text-align: center;
     margin-top: 60px;
+    color: var(--about-rss-text);
 
     .about-rss-logo {
       width: 140px;
       transition: transform 0.3s ease;
+      filter: var(--logo-filter);
 
       &:hover {
         transform: scale(1.05);

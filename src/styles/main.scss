@@ -1,1 +1,11 @@
 @use './base/reset';
+@use './base/variables';
+@use './base/scrollbar';
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}

@@ -2,10 +2,16 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import * as path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
   server: {
     host: true,
   },
@@ -23,8 +29,10 @@ export default defineConfig({
         'src/setupTests.{js,ts}',
         'src/**/*.d.ts',
         'src/**/types.ts',
-        'src/routes/*.{js,jsx,ts,tsx}',
+        'src/**/index.ts',
+        'src/routes/*',
         'src/Layouts/MainLayout/MainLayout.tsx',
+        'src/App.tsx',
       ],
       thresholds: {
         statements: 80,

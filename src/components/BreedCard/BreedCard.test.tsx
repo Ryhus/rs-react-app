@@ -2,22 +2,28 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
 import BreedCard from './BreedCard';
-import type { Breed } from '../../Services/DogService/types';
+
+import type { BreedInfo } from '@/Services/DogService/types';
 
 describe('BreeCard', () => {
-  const mockBreedData: Breed = {
-    id: '1',
+  const mockBreedData: BreedInfo = {
+    id: 1,
     name: 'Corgi',
+    weight: {
+      imperial: '20 - 30',
+      metric: '9 - 14',
+    },
+    height: {
+      imperial: '10 - 12',
+      metric: '25 - 30',
+    },
     image: {
-      id: '1',
-      height: 300,
-      width: 300,
       url: 'test-image.jpg',
     },
   };
 
   it('renders the img and the name of the breed', () => {
-    render(<BreedCard breed={mockBreedData} />);
+    render(<BreedCard breed={mockBreedData} onClick={() => {}} />);
 
     const breedImg = screen.getByRole('img');
     const breedNameHeading = screen.getByRole('heading', { level: 2 });

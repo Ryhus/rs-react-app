@@ -6,7 +6,7 @@
   max-width: 746px;
   padding: 0.5rem 1rem;
   border-radius: 50px;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--search-bg);
   margin: 30px 0px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
@@ -17,7 +17,7 @@
 
   &:focus-within {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--search-focus-bg);
   }
 
   input {
@@ -27,25 +27,25 @@
     font-size: 1rem;
     padding: 0.6rem 1rem;
     background: transparent;
-    color: #333;
+    color: var(--input-color);
     min-width: 0;
   }
 
   .clear-btn {
     background: none;
     border: none;
-    color: #bbb;
+    color: var(--clear-btn-color);
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 2rem;
     transition: color 0.2s ease;
 
     &:hover {
-      color: #555;
+      color: var(--clear-btn-hover);
     }
   }
 
   .submit-btn {
-    background: linear-gradient(135deg, #6c63ff, #42a5f5);
+    background: var(--submit-gradient);
     color: #fff;
     border: none;
     padding: 0.5rem 1.4rem;
@@ -57,7 +57,7 @@
     transition: background 0.3s ease;
 
     &:hover {
-      background: linear-gradient(135deg, #5a54d1, #1e88e5);
+      background: var(--submit-gradient-hover);
     }
   }
 }

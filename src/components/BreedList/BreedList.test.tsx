@@ -2,18 +2,22 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
 import BreedList from './BreedList';
-import type { Breed } from '../../Services/DogService/types';
+import type { BreedInfo } from '@/Services/DogService/types';
 
-const mockBreedsArray: Breed[] = [
+const mockBreedsArray: BreedInfo[] = [
   {
-    id: '1',
+    id: 1,
     name: 'Corgi',
-    image: { id: '1', width: 300, height: 300, url: 'test-img.jpg' },
+    weight: { imperial: '25', metric: '11' },
+    height: { imperial: '10', metric: '25' },
+    image: { url: 'test-img.jpg' },
   },
   {
-    id: '2',
+    id: 2,
     name: 'Labrador',
-    image: { id: '2', width: 300, height: 300, url: 'test-img2.jpg' },
+    weight: { imperial: '65', metric: '29' },
+    height: { imperial: '22', metric: '56' },
+    image: { url: 'test-img2.jpg' },
   },
 ];
 

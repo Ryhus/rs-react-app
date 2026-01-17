@@ -1,5 +1,6 @@
 .pagination-container {
-  margin-top: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 7rem;
   display: flex;
   justify-content: center;
 }
@@ -14,10 +15,10 @@
 
 .page-link {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--page-border);
   border-radius: 6px;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--page-bg);
+  color: var(--page-color);
   text-decoration: none;
   font-weight: 500;
   transition:
@@ -25,22 +26,22 @@
     color 0.2s ease;
 
   &:hover {
-    background-color: #f0f0f0;
-    color: #000;
+    background-color: var(--page-hover-bg);
+    color: var(--page-hover-color);
   }
 
   &.active {
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--page-active-bg);
+    color: var(--page-active-color);
     font-weight: bold;
     pointer-events: none;
-    border-color: #007bff;
+    border-color: var(--page-active-bg);
   }
 
   &.disabled {
     pointer-events: none;
-    color: #aaa;
-    border-color: #ddd;
-    background-color: #f9f9f9;
+    color: var(--page-disabled-color);
+    border-color: var(--page-disabled-border);
+    background-color: var(--page-disabled-bg);
   }
 }
