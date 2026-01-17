@@ -1,23 +1,33 @@
-import { Component } from 'react';
-import type { Breed } from '../../Services/DogService/types';
+import { useSelectionStore } from '@/stores/selectionStore';
+
+import type { BreedInfo } from '@/Services/DogService/types';
 
 import './BreedCardStyles.scss';
 
 interface BreedProps {
-  breed: Breed;
+  breed: BreedInfo;
+  onClick: () => void;
 }
 
-class BreedCard extends Component<BreedProps> {
-  render(): React.ReactNode {
-    const { breed } = this.props;
+function BreedCard({ breed, onClick }: BreedProps) {
+  const { toggleSelection, isSelected } = useSelectionStore();
 
-    return (
-      <article className="breed-card">
-        <img src={breed.image?.url} alt={breed.name}></img>
+  const selected = isSelected(breed.id);
+
+  return (
+    <div className="breed-card-container">
+      <article className="breed-card" onClick={onClick}>
+        <img src={breed.image?.url} alt={breed.name} />
         <h2>{breed.name}</h2>
       </article>
-    );
-  }
+      <input
+        className="card-checkbox"
+        type="checkbox"
+        checked={selected}
+        onChange={() => toggleSelection(breed)}
+      />
+    </div>
+  );
 }
 
 export default BreedCard;

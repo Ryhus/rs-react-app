@@ -1,19 +1,60 @@
-# RS-REACT-APP Project
+# 🐶 Beloved Dogs
 
-This project is developed according to [RS School (React Course)](https://rs.school/courses/reactjs) task requarements.
+[![Deployment](https://img.shields.io/badge/deployed-netlify-00C7B7)](https://beloved-dogs.netlify.app/)
 
-## How to install
+A modern React application for exploring dog breeds using real [The Dog API](https://docs.thedogapi.com/) data, built as part of the [RS School (React Course)](https://rs.school/courses/reactjs).
 
-1. Clone the repository
-2. In the terminal type `npm install`
-   - there is **.nvmrc** file, so you can switch to node v20.19.0 with `nvm use` and `nvm install`. [More detailed information about **nvm**](https://github.com/nvm-sh/nvm?utm_source=chatgpt.com).
+## 🛠 Tech Stack
 
-## Linting and Formatting
+The project is built using the following technologies:
 
-ESlint and Prettier are used to adhere best coding practices.
+- **TypeScript**
+- **React**
+- **React Router**
+- **TanStack Query**
+- **Zustand**
+- **React Testing Library (RTL)**
+- **Mock Service Worker**
+- **SASS**
+- **VITE**
 
-## Husky
+## 📦 Installation
 
-Husky is used on pre-commit for staged files utilizing **lint-staged** package.
+1. Clone the repository [url](https://github.com/Ryhus/rs-react-app.git)
+2. Install dependencies `npm install`
 
-❗If you have **problems** with husky try to use script in the terminal `npm run prepare`
+   ℹ️ The project includes an .nvmrc file.
+   You can switch to the required Node.js version (v20.19.0) using:
+
+   `nvm install`
+
+   `nvm use`
+
+   More details about nvm can be found [here](https://github.com/nvm-sh/nvm)
+
+3. Environment variables
+   - Create a .env file in the project root
+   - Copy the contents from .env.example
+   - Add your own API key from https://docs.thedogapi.com/
+
+## 🧪 Linting & Formatting
+
+ESLint and Prettier are used to ensure consistent code style and best practices.
+
+## 🐕 Husky & Git Hooks
+
+- Husky is configured to run on pre-commit
+- lint-staged is used to lint and format only staged files
+
+This helps maintain code quality before every commit.
+
+## ✨ Features
+
+- Browse and explore dog breeds
+- View detailed breed information
+- Client-side routing with clean URL state
+- Efficient data fetching and caching
+- Global state management for shared UI state
+- Theme switcher
+- Download data about the breeds into Excel file
+- Scalable project architecture following best practices

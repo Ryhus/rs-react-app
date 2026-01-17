@@ -1,13 +1,13 @@
 export interface Breed {
-  weight?: { imperial?: string; metric?: string };
   id?: string;
+  origin?: string;
   name?: string;
+  temperament?: string;
+  weight?: { imperial?: string; metric?: string };
   description?: string;
   cfa_url?: string;
   vetstreet_url?: string;
   vcahospitals_url?: string;
-  temperament?: string;
-  origin?: string;
   life_span?: string;
   indoor?: number;
   lap?: number;
@@ -35,6 +35,28 @@ export interface Breed {
   hypoallergenic?: number;
   reference_image_id?: string;
   image?: { id: string; width: number; height: number; url: string };
+}
+
+export interface BreedInfo {
+  id: number;
+  name: string;
+  bred_for?: string;
+  breed_group?: string;
+  life_span?: string;
+  temperament?: string;
+  origin?: string;
+  reference_image_id?: string;
+  weight: {
+    imperial: string;
+    metric: string;
+  };
+  height: {
+    imperial: string;
+    metric: string;
+  };
+  image?: {
+    url: string;
+  };
 }
 
 export type SearchBreedResponse = Breed[];

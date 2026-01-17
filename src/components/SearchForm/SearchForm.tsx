@@ -1,101 +1,37 @@
-import { Component } from 'react';
-import PopUpMessage from '../PopUpMessage/PopUpMessage';
-import {
-  searchBreeds,
-  getAllBreeds,
-} from '../../Services/DogService/DogService';
+import { type ChangeEvent, useState } from 'react';
+import { Form } from 'react-router-dom';
 
-import type { Breed } from '../../Services/DogService/types';
-import type { FormEvent, ChangeEvent } from 'react';
+import { PopUpMessage } from '@/components';
+import { usePersistedSearchQuery } from '@/hooks/usePersistentSearchQuery';
 
 import './SearchFormStyles.scss';
 
-interface SearchFormState {
-  input: string;
-  error: string;
-}
+function SearchForm() {
+  const [query, setQuery] = usePersistedSearchQuery();
+  const [error, setError] = useState('');
 
-interface SearchFormProps {
-  onSearch: (breeds: Breed[]) => void;
-}
-
-class SearchForm extends Component<SearchFormProps, SearchFormState> {
-  constructor(props: SearchFormProps) {
-    super(props);
-
-    const lastTerm = localStorage.getItem('lastSearchTerm') || '';
-
-    this.state = {
-      input: lastTerm,
-      error: '',
-    };
-  }
-
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    this.setState({ input: e.target.value, error: '' });
-    localStorage.setItem('lastSearchTerm', newValue);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
-  handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const { input } = this.state;
-
-    this.setState({ error: '' });
-
-    try {
-      if (input.trim() === '') {
-        const breedList = await getAllBreeds();
-        this.props.onSearch(breedList);
-      } else {
-        const foundBreeds = await searchBreeds(input.trim());
-        this.props.onSearch(foundBreeds);
-      }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        this.setState({
-          error: 'Failed to load dog breeds. Please try again later.',
-        });
-      } else {
-        this.setState({
-          error: 'Something went wrong. Please try again.',
-        });
-      }
-    }
+  const handleClear = () => {
+    setQuery('');
+    setError('');
   };
 
-  handleClear = () => {
-    this.setState({ input: '', error: '' });
-  };
-
-  render(): React.ReactNode {
-    const { input, error } = this.state;
-
-    return (
-      <form className="search-bar" onSubmit={this.handleSubmit}>
-        <span>🔍</span>
-        <input
-          type="text"
-          name="breed"
-          value={input}
-          onChange={this.handleChange}
-        />
-        <button type="button" className="clear-btn" onClick={this.handleClear}>
-          ✖
-        </button>
-        <button type="submit" className="submit-btn">
-          Search
-        </button>
-        {error && (
-          <PopUpMessage
-            message={error}
-            onClose={() => this.setState({ error: '' })}
-          />
-        )}
-      </form>
-    );
-  }
+  return (
+    <Form className="search-bar" method="get">
+      <span>🔍</span>
+      <input type="text" name="breed" value={query} onChange={handleChange} />
+      <button type="button" className="clear-btn" onClick={handleClear}>
+        &times;
+      </button>
+      <button type="submit" className="submit-btn">
+        Search
+      </button>
+      {error && <PopUpMessage message={error} onClose={() => setError('')} />}
+    </Form>
+  );
 }
 
 export default SearchForm;
