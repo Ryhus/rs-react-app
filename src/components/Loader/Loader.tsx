@@ -5,8 +5,8 @@ import './LoaderStyles.scss';
 class Loader extends Component {
   render(): React.ReactNode {
     return (
-      <div className="loader-wrapper">
-        <div className="dog-walk" />
+      <div className="loader-wrapper" data-testid="loader-wrapper">
+        <div className="dog-walk" data-testid="dog-walk" />
       </div>
     );
   }

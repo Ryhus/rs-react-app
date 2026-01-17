@@ -32,24 +32,25 @@ class SearchForm extends Component<SearchFormProps, SearchFormState> {
   }
 
   handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
     this.setState({ input: e.target.value, error: '' });
-    localStorage.setItem('lastSearchTerm', newValue);
   };
 
   handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const { input } = this.state;
+    const trimmedInput = input.trim();
 
     this.setState({ error: '' });
 
+    localStorage.setItem('lastSearchTerm', trimmedInput);
+    console.log(trimmedInput);
     try {
-      if (input.trim() === '') {
+      if (trimmedInput === '') {
         const breedList = await getAllBreeds();
         this.props.onSearch(breedList);
       } else {
-        const foundBreeds = await searchBreeds(input.trim());
+        const foundBreeds = await searchBreeds(trimmedInput);
         this.props.onSearch(foundBreeds);
       }
     } catch (err: unknown) {

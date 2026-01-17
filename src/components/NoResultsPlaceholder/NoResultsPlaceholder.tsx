@@ -4,7 +4,10 @@ import './NoResultsPlaceholder.scss';
 class NoResultsPlaceholder extends Component {
   render() {
     return (
-      <div className="no-results-placeholder">
+      <div
+        className="no-results-placeholder"
+        data-testid="no-results-placeholder"
+      >
         <div className="icon">🐾</div>
         <h2>No dogs found 😞</h2>
         <p>
